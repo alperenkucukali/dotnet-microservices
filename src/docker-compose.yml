@@ -1,0 +1,72 @@
+version: '3.4'
+
+services:
+  customerdb:
+    image: postgres
+
+  accountdb:
+    image: postgres
+
+  transactiondb:
+    image: mongo
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+
+  pgadmin:
+    image: dpage/pgadmin4  
+
+  portainer:
+    image: portainer/portainer-ce
+
+  transaction.api:
+    image: ${DOCKER_REGISTRY-}transactionapi
+    build:
+      context: .
+      dockerfile: Services/Transaction/Transaction.API/Dockerfile
+
+  account.api:
+    image: ${DOCKER_REGISTRY-}accountapi
+    build:
+      context: .
+      dockerfile: Services/Account/Account.API/Dockerfile
+
+
+  customer.api:
+    image: ${DOCKER_REGISTRY-}customerapi
+    build:
+      context: .
+      dockerfile: Services/Customer/Customer.API/Dockerfile
+
+
+  customer.grpc:
+    image: ${DOCKER_REGISTRY-}customergrpc
+    build:
+      context: .
+      dockerfile: Services/Customer/Customer.GRPC/Dockerfile
+
+
+  ocelotapigateway:
+    image: ${DOCKER_REGISTRY-}ocelotapigateway
+    build:
+      context: .
+      dockerfile: ApiGateways/OcelotApiGateway/Dockerfile
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.9.2
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.9.2
+
+  webstatus:
+    image: ${DOCKER_REGISTRY-}webstatus
+    build:
+      context: .
+      dockerfile: WebApps/WebStatus/Dockerfile
+
+volumes:
+  mongo_data:
+  portainer_data:
+  postgres_data:
+  pgadmin_data:
+  elasticsearch-data:

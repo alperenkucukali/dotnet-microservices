@@ -1,0 +1,157 @@
+version: '3.4'
+
+services:
+  transactiondb:
+    container_name: transactiondb
+    restart: always
+    ports:
+        - "27017:27017"
+    volumes:
+        - mongo_data:/data/db
+
+  accountdb:
+    container_name: accountdb
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin1234
+      - POSTGRES_DB=AccountDb
+    restart: always
+    ports:
+        - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/  
+
+  customerdb:
+    container_name: customerdb
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin1234
+      - POSTGRES_DB=CustomerDb
+    restart: always
+    ports:
+        - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/      
+
+  rabbitmq:
+    container_name: rabbitmq
+    restart: always
+    ports:
+        - "5672:5672"
+        - "15672:15672"
+
+  pgadmin:
+    container_name: pgadmin
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=alperen@kucukali.com
+      - PGADMIN_DEFAULT_PASSWORD=admin1234
+    restart: always
+    ports:
+        - "5050:80"
+    volumes:
+      - pgadmin_data:/root/.pgadmin
+
+  portainer:
+    container_name: portainer
+    restart: always
+    ports:
+      - "8080:8000"
+      - "9000:9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+
+  transaction.api:
+    container_name: transaction.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "DatabaseSettings:ConnectionString=mongodb://transactiondb:27017"
+      - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
+      - "ElasticConfiguration:Uri=http://elasticsearch:9200"
+    depends_on:
+      - transactiondb
+      - rabbitmq
+    ports:
+      - "8002:80"
+
+  account.api:
+    container_name: account.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "DatabaseSettings:ConnectionString=Server=accountdb;Port=5432;Database=AccountDb;User Id=admin;Password=admin1234;"
+      - "GrpcSettings:CustomerUrl=http://customer.grpc"
+      - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
+      - "ElasticConfiguration:Uri=http://elasticsearch:9200"
+    depends_on:
+      - accountdb
+      - rabbitmq
+    ports:
+      - "8001:80"
+
+  customer.api:
+    container_name: customer.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "DatabaseSettings:ConnectionString=Server=customerdb;Port=5432;Database=CustomerDb;User Id=admin;Password=admin1234;"
+      - "ElasticConfiguration:Uri=http://elasticsearch:9200"
+    depends_on:
+      - customerdb
+    ports:
+      - "8000:80"
+
+  customer.grpc:
+    container_name: customer.grpc
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "DatabaseSettings:ConnectionString=Server=customerdb;Port=5432;Database=CustomerDb;User Id=admin;Password=admin1234;"
+      - "ElasticConfiguration:Uri=http://elasticsearch:9200"
+    depends_on:
+      - customerdb
+    ports:
+      - "5001:80"
+
+  ocelotapigateway:
+    container_name: ocelotapigateway
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ElasticConfiguration:Uri=http://elasticsearch:9200"
+    depends_on:
+        - customer.api
+        - account.api
+        - transaction.api
+    ports:
+      - "8010:80"
+
+  elasticsearch:
+    container_name: elasticsearch
+    environment:
+        - xpack.monitoring.enabled=true
+        - xpack.watcher.enabled=false
+        - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+        - discovery.type=single-node
+    ports:
+        - "9200:9200"
+    volumes:
+        - elasticsearch-data:/usr/share/elasticsearch/data   
+
+  kibana:
+    container_name: kibana
+    environment:        
+        - ELASTICSEARCH_URL=http://elasticsearch:9200
+    depends_on:
+        - elasticsearch
+    ports:
+        - "5601:5601" 
+
+  webstatus:
+    container_name: webstatus
+    environment:
+        - ASPNETCORE_ENVIRONMENT=Development
+        - HealthChecksUI__HealthChecks__0__Name=Customer Health Check
+        - HealthChecksUI__HealthChecks__0__Uri=http://customer.api/hc
+        - HealthChecksUI__HealthChecks__1__Name=Account Health Check
+        - HealthChecksUI__HealthChecks__1__Uri=http://account.api/hc
+        - HealthChecksUI__HealthChecks__2__Name=Transaction Health Check
+        - HealthChecksUI__HealthChecks__2__Uri=http://transaction.api/hc
+    ports:
+        - "8007:80"
