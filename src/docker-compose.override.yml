@@ -72,7 +72,7 @@ services:
     depends_on:
       - customerdb
     ports:
-      - "8000:80"
+      - "8002:8080"
 
   account.api:
     container_name: account.api
@@ -86,7 +86,7 @@ services:
       - accountdb
       - rabbitmq
     ports:
-      - "8001:80"
+      - "8001:8080"
 
   transaction.api:
     container_name: transaction.api
@@ -99,7 +99,7 @@ services:
       - transactiondb
       - rabbitmq
     ports:
-      - "8002:80"
+      - "8000:8080"
 
   customer.grpc:
     container_name: customer.grpc
@@ -110,7 +110,7 @@ services:
     depends_on:
       - customerdb
     ports:
-      - "5001:80"
+      - "5001:8080"
 
   ocelotapigateway:
     container_name: ocelotapigateway
@@ -122,7 +122,7 @@ services:
         - account.api
         - transaction.api
     ports:
-      - "8010:80"
+      - "8010:8080"
 
   elasticsearch:
     container_name: elasticsearch
@@ -150,10 +150,10 @@ services:
     environment:
         - ASPNETCORE_ENVIRONMENT=Development
         - HealthChecksUI__HealthChecks__0__Name=Customer Health Check
-        - HealthChecksUI__HealthChecks__0__Uri=http://customer.api/hc
+        - HealthChecksUI__HealthChecks__0__Uri=http://customer.api:8080/hc
         - HealthChecksUI__HealthChecks__1__Name=Account Health Check
-        - HealthChecksUI__HealthChecks__1__Uri=http://account.api/hc
+        - HealthChecksUI__HealthChecks__1__Uri=http://account.api:8080/hc
         - HealthChecksUI__HealthChecks__2__Name=Transaction Health Check
-        - HealthChecksUI__HealthChecks__2__Uri=http://transaction.api/hc
+        - HealthChecksUI__HealthChecks__2__Uri=http://transaction.api:8080/hc
     ports:
-        - "8007:80"
+        - "8007:8080"
