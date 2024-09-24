@@ -8,7 +8,6 @@ using Account.Application.Features.Accounts.Queries.GetAccount;
 using EventBus.Messages.Events;
 using MassTransit;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Account.API.Controllers

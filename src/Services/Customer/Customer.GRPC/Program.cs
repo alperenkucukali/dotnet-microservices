@@ -1,11 +1,9 @@
 using Common.Logging;
 using Customer.GRPC.Extensions;
-using Customer.Infrastructure.Persistence;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-using Microsoft.OpenApi.Models;
-using Serilog;
-using Customer.Infrastructure;
 using Customer.GRPC.Services;
+using Customer.Infrastructure;
+using Customer.Infrastructure.Persistence;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 

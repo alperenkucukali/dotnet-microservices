@@ -1,17 +1,16 @@
-using Microsoft.EntityFrameworkCore;
-using System.Reflection;
-using Account.Infrastructure;
-using Account.Application;
-using Microsoft.OpenApi.Models;
-using Account.Infrastructure.Persistence;
-using Serilog;
-using Common.Logging;
 using Account.API.Extensions;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-using HealthChecks.UI.Client;
-using Customer.GRPC.Protos;
 using Account.API.GrpcServices;
+using Account.Application;
+using Account.Infrastructure;
+using Account.Infrastructure.Persistence;
+using Common.Logging;
+using Customer.GRPC.Protos;
+using HealthChecks.UI.Client;
 using MassTransit;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
+using Serilog;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -43,7 +42,7 @@ builder.Services.AddSwaggerGen(s =>
     s.SwaggerDoc("v1", new OpenApiInfo { Title = "Account.API", Version = "v1" });
 });
 builder.Services.AddHealthChecks()
-    .AddRabbitMQ(builder.Configuration["EventBusSettings:HostAddress"]!,name:"accounttransaction-rabbitmqbus")
+    .AddRabbitMQ(builder.Configuration["EventBusSettings:HostAddress"]!, name: "accounttransaction-rabbitmqbus")
     .AddDbContextCheck<AccountContext>();
 builder.Host.UseSerilog(SeriLogger.Configure);
 var app = builder.Build();

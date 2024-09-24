@@ -1,17 +1,12 @@
 using Common.Logging;
-using Customer.Infrastructure.Persistence;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.DependencyInjection;
-using Serilog;
+using Customer.API.Extensions;
 using Customer.Application;
 using Customer.Infrastructure;
-using Customer.Application.Mappings;
-using Microsoft.OpenApi.Models;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Customer.Infrastructure.Persistence;
 using HealthChecks.UI.Client;
-using Customer.API.Extensions;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.OpenApi.Models;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -2,7 +2,6 @@
 using EventBus.Messages.Events;
 using MassTransit;
 using Transaction.API.Repositories.Interfaces;
-using Transaction.API.Services.Interfaces;
 
 namespace Transaction.API.EventBusConsumer
 {

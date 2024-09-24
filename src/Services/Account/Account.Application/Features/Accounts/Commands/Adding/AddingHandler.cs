@@ -1,15 +1,8 @@
 ﻿using Account.Application.Contracts.Persistence;
 using Account.Application.Exceptions;
-using Account.Application.Features.Accounts.Commands.Withdrawing;
 using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Account.Application.Features.Accounts.Commands.Adding
 {
