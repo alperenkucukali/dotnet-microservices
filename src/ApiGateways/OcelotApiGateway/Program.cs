@@ -10,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddOcelot().AddCacheManager(settings => settings.WithDictionaryHandle());
 
-builder.Configuration.AddJsonFile($"ocelot.{ builder.Environment.EnvironmentName}.json", true, true);
+builder.Configuration.AddJsonFile($"ocelot.{builder.Environment.EnvironmentName}.json", true, true);
 builder.Host.UseSerilog(SeriLogger.Configure);
 
 var app = builder.Build();

@@ -1,12 +1,7 @@
 ﻿using Customer.Application.Contracts.Persistence;
 using Customer.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Customer.Infrastructure.Repositories
 {

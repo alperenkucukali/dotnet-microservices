@@ -1,14 +1,8 @@
 ﻿using Account.Application.Contracts.Persistence;
 using Account.Application.Exceptions;
-using Account.Application.Features.Accounts.Commands.CreateAccount;
 using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Account.Application.Features.Accounts.Commands.Withdrawing
 {
@@ -37,6 +31,11 @@ namespace Account.Application.Features.Accounts.Commands.Withdrawing
             accountUpdate.Balance -= request.Amount;
             await _accountRepository.UpdateAsync(accountUpdate);
             return Unit.Value;
+        }
+
+        Task IRequestHandler<WithdrawingCommand>.Handle(WithdrawingCommand request, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
         }
     }
 }

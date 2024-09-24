@@ -1,9 +1,7 @@
 ﻿using Customer.Application.Features.Customers.Commands.CreateCustomer;
 using Customer.Application.Features.Customers.Queries.GetCustomer;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
 
 namespace Customer.API.Controllers
 {

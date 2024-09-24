@@ -1,7 +1,4 @@
-﻿using AutoMapper;
-using MassTransit.Mediator;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Transaction.API.Data.DTOs.Requests;
 using Transaction.API.Data.DTOs.Responses;
 using Transaction.API.Services.Interfaces;
@@ -39,7 +36,7 @@ namespace Transaction.API.Controllers
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult> GetWithFilter([FromQuery]RequestFilter filter)
+        public async Task<ActionResult> GetWithFilter([FromQuery] RequestFilter filter)
         {
             var result = await _transactionService.GetWithFilter(filter);
             return Ok(result);

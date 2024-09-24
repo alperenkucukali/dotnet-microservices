@@ -20,10 +20,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
-    <PackageReference Include="Ocelot" Version="22.0.1" />
-    <PackageReference Include="Ocelot.Cache.CacheManager" Version="22.0.1" />
-    <PackageReference Include="Serilog" Version="3.1.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
+    <PackageReference Include="Ocelot" Version="23.3.3" />
+    <PackageReference Include="Ocelot.Cache.CacheManager" Version="23.3.3" />
+    <PackageReference Include="Serilog" Version="4.0.1" />
   </ItemGroup>
 
   <ItemGroup>
