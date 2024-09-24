@@ -148,13 +148,10 @@ services:
     environment:
         - ASPNETCORE_ENVIRONMENT=Development
         - HealthChecksUI__HealthChecks__0__Name=Customer Health Check
-#        - HealthChecksUI__HealthChecks__0__Uri=http://customer.api/hc
-        - HealthChecksUI__HealthChecks__0__Uri=http://localhost:8000/hc
+        - HealthChecksUI__HealthChecks__0__Uri=http://customer.api:8080/hc
         - HealthChecksUI__HealthChecks__1__Name=Account Health Check
-#        - HealthChecksUI__HealthChecks__1__Uri=http://account.api/hc
-        - HealthChecksUI__HealthChecks__1__Uri=http://localhost:8001/hc
+        - HealthChecksUI__HealthChecks__1__Uri=http://account.api:8080/hc
         - HealthChecksUI__HealthChecks__2__Name=Transaction Health Check
-#        - HealthChecksUI__HealthChecks__2__Uri=http://transaction.api/hc
-        - HealthChecksUI__HealthChecks__2__Uri=http://localhost:8000/hc
+        - HealthChecksUI__HealthChecks__2__Uri=http://transaction.api:8080/hc
     ports:
         - "8007:8080"
