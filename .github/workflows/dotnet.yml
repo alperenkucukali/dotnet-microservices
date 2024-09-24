@@ -21,8 +21,8 @@ jobs:
       with:
         dotnet-version: 8.0.x
     - name: Restore dependencies
-      run: dotnet restore SampleBank.sln
+      run: dotnet restore src/SampleBank.sln
     - name: Build
-      run: dotnet build SampleBank.sln --no-restore
+      run: dotnet build src/SampleBank.sln --no-restore
     - name: Test
-      run: dotnet test SampleBank.sln --no-build --verbosity normal
+      run: dotnet test src/SampleBank.sln --no-build --verbosity normal
