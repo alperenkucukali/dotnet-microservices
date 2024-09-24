@@ -51,7 +51,7 @@ namespace Account.API.Controllers
         [ProducesDefaultResponseType]
         public async Task<ActionResult> Adding([FromBody] AddingCommand command)
         {
-            var result = await _mediator.Send(command);
+            await _mediator.Send(command);
             await _publishEndpoint.Publish(
                 new AccountTransactionEvent()
                 {
@@ -60,7 +60,7 @@ namespace Account.API.Controllers
                     Amount = command.Amount,
                     Type = TransactionType.Adding
                 });
-            return Ok(result);
+            return Ok();
         }
 
         [HttpPost("Withdrawing")]
@@ -72,7 +72,7 @@ namespace Account.API.Controllers
         [ProducesDefaultResponseType]
         public async Task<ActionResult> Withdrawing([FromBody] WithdrawingCommand command)
         {
-            var result = await _mediator.Send(command);
+            await _mediator.Send(command);
             await _publishEndpoint.Publish(
                 new AccountTransactionEvent()
                 {
@@ -81,17 +81,17 @@ namespace Account.API.Controllers
                     Amount = command.Amount,
                     Type = TransactionType.Withdrawing
                 });
-            return Ok(result);
+            return Ok();
         }
 
         [HttpGet("{id}")]
-        [ProducesResponseType(typeof(GetAccountResponse),StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(GetAccountResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult> GetById([FromRoute]Guid id)
+        public async Task<ActionResult> GetById([FromRoute] Guid id)
         {
             var result = await _mediator.Send(new AccountQuery { AccountId = id });
             if (result is null)

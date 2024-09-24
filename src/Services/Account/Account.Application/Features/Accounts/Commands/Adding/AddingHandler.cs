@@ -37,5 +37,10 @@ namespace Account.Application.Features.Accounts.Commands.Adding
             await _accountRepository.UpdateAsync(accountUpdate);
             return Unit.Value;
         }
+
+        Task IRequestHandler<AddingCommand>.Handle(AddingCommand request, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -38,5 +38,10 @@ namespace Account.Application.Features.Accounts.Commands.Withdrawing
             await _accountRepository.UpdateAsync(accountUpdate);
             return Unit.Value;
         }
+
+        Task IRequestHandler<WithdrawingCommand>.Handle(WithdrawingCommand request, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

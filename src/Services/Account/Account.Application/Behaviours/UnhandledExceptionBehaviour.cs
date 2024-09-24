@@ -18,7 +18,7 @@ namespace Account.Application.Behaviours
             _logger = logger;
         }
 
-        public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
+        public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
         {
             try
             {
@@ -30,6 +30,11 @@ namespace Account.Application.Behaviours
                 _logger.LogError(ex, $"Application Request: Unhandled Exception for Request {requestName} {request}");
                 throw;
             }
+        }
+
+        public Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
+        {
+            throw new NotImplementedException();
         }
     }
 }
