@@ -12,7 +12,7 @@ namespace Customer.GRPC.Extensions
             {
                 var services = scope.ServiceProvider;
                 var logger = services.GetRequiredService<ILogger<TContext>>();
-                var context = services.GetService<TContext>();
+                var context = services.GetService<TContext>()!;
 
                 try
                 {
