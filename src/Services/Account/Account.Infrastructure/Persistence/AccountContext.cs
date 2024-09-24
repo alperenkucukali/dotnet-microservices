@@ -1,22 +1,13 @@
 ﻿using Account.Domain.Common;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Account.Infrastructure.Persistence
 {
-    public class AccountContext : DbContext
-    {
-        public AccountContext(DbContextOptions<AccountContext> options) : base(options)
+    public class AccountContext(DbContextOptions<AccountContext> options) : DbContext(options)
         {
-        }
-
         public DbSet<Domain.Entities.Account> Accounts { get; set; }
 
-        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new())
         {
             foreach (var entry in ChangeTracker.Entries<EntityBase>())
             {

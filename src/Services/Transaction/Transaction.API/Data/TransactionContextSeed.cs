@@ -3,11 +3,11 @@ using MongoDB.Driver;
 
 namespace Transaction.API.Data
 {
-    public class TransactionContextSeed
+    public static class TransactionContextSeed
     {
         public static void SeedData(IMongoCollection<Entities.Transaction> productCollection)
         {
-            bool existProduct = productCollection.Find(p => true).Any();
+            var existProduct = productCollection.Find(p => true).Any();
             if (!existProduct)
             {
                 productCollection.InsertManyAsync(GetPreconfiguredProducts());

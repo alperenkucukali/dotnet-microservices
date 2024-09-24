@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Customer.Application.Constants.Messages.CustomerMessages
+﻿namespace Customer.Application.Constants.Messages.CustomerMessages
 {
     public static class CustomerMessage
     {

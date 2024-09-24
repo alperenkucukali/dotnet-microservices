@@ -6,29 +6,21 @@ using Transaction.API.Services.Interfaces;
 
 namespace Transaction.API.Services
 {
-    public class TransactionService : ITransactionService
-    {
-        private readonly ITransactionRepository _transactionRepository;
-        private readonly ILogger<TransactionService> _logger;
-        private readonly IMapper _mapper;
-
-        public TransactionService(ITransactionRepository transactionRepository, ILogger<TransactionService> logger, IMapper mapper)
+    public class TransactionService(
+        ITransactionRepository transactionRepository,
+        IMapper mapper)
+        : ITransactionService
         {
-            _transactionRepository = transactionRepository;
-            _logger = logger;
-            _mapper = mapper;
-        }
-
         public async Task<List<TransactionDto>> GetByAccountId(Guid accountId)
         {
-            var transactions = await _transactionRepository.GetByAccountId(accountId);
-            return _mapper.Map<List<TransactionDto>>(transactions)!;
+            var transactions = await transactionRepository.GetByAccountId(accountId);
+            return mapper.Map<List<TransactionDto>>(transactions)!;
         }
 
         public async Task<List<TransactionDto>> GetWithFilter(RequestFilter filter)
         {
-            var transactions = await _transactionRepository.GetWithFilter(filter);
-            return _mapper.Map<List<TransactionDto>>(transactions)!;
+            var transactions = await transactionRepository.GetWithFilter(filter);
+            return mapper.Map<List<TransactionDto>>(transactions)!;
         }
     }
 }

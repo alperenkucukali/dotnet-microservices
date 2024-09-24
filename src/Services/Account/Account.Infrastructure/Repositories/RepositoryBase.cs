@@ -2,23 +2,14 @@
 using Account.Domain.Common;
 using Account.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Account.Infrastructure.Repositories
 {
-    public class RepositoryBase<T> : IRepositoryBase<T> where T : EntityBase
-    {
-        protected readonly AccountContext _dbContext;
-
-        public RepositoryBase(AccountContext dbContext)
+    public class RepositoryBase<T>(AccountContext dbContext) : IRepositoryBase<T>
+        where T : EntityBase
         {
-            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
-        }
+        private readonly AccountContext _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
 
         public async Task<IReadOnlyList<T>> GetAllAsync()
         {

@@ -1,15 +1,11 @@
 using Common.Logging;
 using Customer.GRPC.Extensions;
 using Customer.Infrastructure.Persistence;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-using Microsoft.OpenApi.Models;
 using Serilog;
 using Customer.Infrastructure;
 using Customer.GRPC.Services;
 
 var builder = WebApplication.CreateBuilder(args);
-
-
 
 builder.Services.AddInfrastructureServices(builder.Configuration);
 
@@ -27,13 +23,10 @@ app.MigrateDatabase<CustomerContext>((context, services) =>
         .Wait();
 });
 
-
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
 }
-
 
 app.UseRouting();
 

@@ -1,20 +1,14 @@
 using Common.Logging;
 using Customer.Infrastructure.Persistence;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using Customer.Application;
 using Customer.Infrastructure;
-using Customer.Application.Mappings;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using HealthChecks.UI.Client;
 using Customer.API.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
-
 
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
@@ -40,8 +34,6 @@ app.MigrateDatabase<CustomerContext>((context, services) =>
         .Wait();
 });
 
-
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
@@ -49,7 +41,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Customer.API v1"));
 }
 
-//app.UseHttpsRedirection();
 app.UseRouting();
 
 app.UseAuthorization();

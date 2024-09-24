@@ -1,5 +1,3 @@
-using Microsoft.EntityFrameworkCore;
-using System.Reflection;
 using Account.Infrastructure;
 using Account.Application;
 using Microsoft.OpenApi.Models;
@@ -12,7 +10,6 @@ using HealthChecks.UI.Client;
 using Customer.GRPC.Protos;
 using Account.API.GrpcServices;
 using MassTransit;
-
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -56,8 +53,6 @@ app.MigrateDatabase<AccountContext>((context, services) =>
         .Wait();
 });
 
-
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
@@ -65,7 +60,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Account.API v1"));
 }
 
-//app.UseHttpsRedirection();
 app.UseRouting();
 
 app.UseAuthorization();

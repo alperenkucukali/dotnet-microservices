@@ -1,21 +1,16 @@
 ﻿using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Account.Infrastructure.Persistence
 {
     public class AccountContextSeed
     {
-        public static async Task SeedAsync(AccountContext AccountContext, ILogger<AccountContextSeed> logger)
+        public static async Task SeedAsync(AccountContext accountContext, ILogger<AccountContextSeed> logger)
         {
-            if (!AccountContext.Accounts.Any())
+            if (!accountContext.Accounts.Any())
             {
-                AccountContext.Accounts.AddRange(GetPreconfiguredAccounts());
-                await AccountContext.SaveChangesAsync();
-                logger.LogInformation($"Seed database associated with context {typeof(AccountContext).Name}");
+                accountContext.Accounts.AddRange(GetPreconfiguredAccounts());
+                await accountContext.SaveChangesAsync();
+                logger.LogInformation($"Seed database associated with context {nameof(AccountContext)}");
             }
         }
 
@@ -23,7 +18,7 @@ namespace Account.Infrastructure.Persistence
         {
             return new List<Domain.Entities.Account>
             {
-                new Domain.Entities.Account(Guid.Parse("a3372135-ea3d-4eb9-8209-5a36634b2bba"),Guid.Parse("ef533977-e666-4c75-ac4e-ea1de9ea4aef"), 1_000_000)
+                new(Guid.Parse("a3372135-ea3d-4eb9-8209-5a36634b2bba"),Guid.Parse("ef533977-e666-4c75-ac4e-ea1de9ea4aef"), 1_000_000)
             };
         }
     }

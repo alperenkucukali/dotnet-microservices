@@ -5,23 +5,16 @@ using Transaction.API.Repositories.Interfaces;
 
 namespace Transaction.API.Repositories
 {
-    public class TransactionRepository : ITransactionRepository
-    {
-        private readonly ITransactionContext _transactionContext;
-
-        public TransactionRepository(ITransactionContext transactionContext)
+    public class TransactionRepository(ITransactionContext transactionContext) : ITransactionRepository
         {
-            _transactionContext = transactionContext;
-        }
-
         public async Task Add(Entities.Transaction transaction)
         {
-            await _transactionContext.Transactions.InsertOneAsync(transaction);
+            await transactionContext.Transactions.InsertOneAsync(transaction);
         }
 
         public async Task<IEnumerable<Entities.Transaction>> GetByAccountId(Guid accountId)
         {
-            return await _transactionContext
+            return await transactionContext
                 .Transactions
                 .Find(x => x.AccountId == accountId)
                 .ToListAsync();
@@ -35,7 +28,7 @@ namespace Transaction.API.Repositories
                 filterBuilder.Gte(x => x.CreatedDate, filter.StartDate) &
                 filterBuilder.Lt(x => x.CreatedDate, filter.EndDate);
 
-            return await _transactionContext
+            return await transactionContext
                 .Transactions
                 .Find(filters)
                 .ToListAsync();

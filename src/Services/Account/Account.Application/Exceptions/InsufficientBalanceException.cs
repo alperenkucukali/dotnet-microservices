@@ -1,16 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Account.Application.Exceptions
+﻿namespace Account.Application.Exceptions
 {
-    public class InsufficientBalanceException : ApplicationException
-    {
-        public InsufficientBalanceException(decimal currentBalance)
-            : base($"Insufficient balance.Your current balance is {currentBalance}")
-        {
-        }
-    }
+    public class InsufficientBalanceException(decimal currentBalance)
+        : ApplicationException($"Insufficient balance.Your current balance is {currentBalance}");
 }

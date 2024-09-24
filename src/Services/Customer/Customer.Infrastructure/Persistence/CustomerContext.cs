@@ -1,22 +1,13 @@
 ﻿using Customer.Domain.Common;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Customer.Infrastructure.Persistence
 {
-    public class CustomerContext : DbContext
-    {
-        public CustomerContext(DbContextOptions<CustomerContext> options) : base(options)
+    public class CustomerContext(DbContextOptions<CustomerContext> options) : DbContext(options)
         {
-        }
-
         public DbSet<Domain.Entities.Customer> Customers { get; set; }
 
-        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new())
         {
             foreach (var entry in ChangeTracker.Entries<EntityBase>())
             {
@@ -30,6 +21,7 @@ namespace Customer.Infrastructure.Persistence
                         break;
                 }
             }
+            
             return base.SaveChangesAsync(cancellationToken);
         }
     }
