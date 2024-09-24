@@ -19,11 +19,11 @@ services:
   portainer:
     image: portainer/portainer-ce
 
-  transaction.api:
-    image: ${DOCKER_REGISTRY-}transactionapi
+  customer.api:
+    image: ${DOCKER_REGISTRY-}customerapi
     build:
       context: .
-      dockerfile: Services/Transaction/Transaction.API/Dockerfile
+      dockerfile: Services/Customer/Customer.API/Dockerfile
 
   account.api:
     image: ${DOCKER_REGISTRY-}accountapi
@@ -31,20 +31,17 @@ services:
       context: .
       dockerfile: Services/Account/Account.API/Dockerfile
 
-
-  customer.api:
-    image: ${DOCKER_REGISTRY-}customerapi
+  transaction.api:
+    image: ${DOCKER_REGISTRY-}transactionapi
     build:
       context: .
-      dockerfile: Services/Customer/Customer.API/Dockerfile
-
+      dockerfile: Services/Transaction/Transaction.API/Dockerfile
 
   customer.grpc:
     image: ${DOCKER_REGISTRY-}customergrpc
     build:
       context: .
       dockerfile: Services/Customer/Customer.GRPC/Dockerfile
-
 
   ocelotapigateway:
     image: ${DOCKER_REGISTRY-}ocelotapigateway

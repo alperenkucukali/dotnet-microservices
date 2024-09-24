@@ -1,37 +1,39 @@
 version: '3.4'
 
+x-db-env: &db-env
+  POSTGRES_USER: admin
+  POSTGRES_PASSWORD: admin1234
+
 services:
+  customerdb:
+    container_name: customerdb
+    environment:
+      <<: *db-env
+      POSTGRES_DB: CustomerDb
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    
+  accountdb:
+    container_name: accountdb
+    environment:
+     <<: *db-env
+     POSTGRES_DB: AccountDb
+    restart: always
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    
   transactiondb:
     container_name: transactiondb
     restart: always
     ports:
         - "27017:27017"
     volumes:
-        - mongo_data:/data/db
-
-  accountdb:
-    container_name: accountdb
-    environment:
-      - POSTGRES_USER=admin
-      - POSTGRES_PASSWORD=admin1234
-      - POSTGRES_DB=AccountDb
-    restart: always
-    ports:
-        - "5433:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data/  
-
-  customerdb:
-    container_name: customerdb
-    environment:
-      - POSTGRES_USER=admin
-      - POSTGRES_PASSWORD=admin1234
-      - POSTGRES_DB=CustomerDb
-    restart: always
-    ports:
-        - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data/      
+        - mongo_data:/data/db 
 
   rabbitmq:
     container_name: rabbitmq
@@ -61,18 +63,16 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer_data:/data
 
-  transaction.api:
-    container_name: transaction.api
+  customer.api:
+    container_name: customer.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - "DatabaseSettings:ConnectionString=mongodb://transactiondb:27017"
-      - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
+      - "DatabaseSettings:ConnectionString=Server=customerdb;Port=5432;Database=CustomerDb;User Id=admin;Password=admin1234;"
       - "ElasticConfiguration:Uri=http://elasticsearch:9200"
     depends_on:
-      - transactiondb
-      - rabbitmq
+      - customerdb
     ports:
-      - "8002:80"
+      - "8000:80"
 
   account.api:
     container_name: account.api
@@ -88,16 +88,18 @@ services:
     ports:
       - "8001:80"
 
-  customer.api:
-    container_name: customer.api
+  transaction.api:
+    container_name: transaction.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - "DatabaseSettings:ConnectionString=Server=customerdb;Port=5432;Database=CustomerDb;User Id=admin;Password=admin1234;"
+      - "DatabaseSettings:ConnectionString=mongodb://transactiondb:27017"
+      - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
       - "ElasticConfiguration:Uri=http://elasticsearch:9200"
     depends_on:
-      - customerdb
+      - transactiondb
+      - rabbitmq
     ports:
-      - "8000:80"
+      - "8002:80"
 
   customer.grpc:
     container_name: customer.grpc
