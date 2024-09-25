@@ -15,7 +15,10 @@ services:
 
   pgadmin:
     image: dpage/pgadmin4  
-
+    
+  mongo-express:
+    image: mongo-express
+    
   portainer:
     image: portainer/portainer-ce
 

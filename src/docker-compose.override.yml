@@ -52,7 +52,20 @@ services:
         - "5050:80"
     volumes:
       - pgadmin_data:/root/.pgadmin
-
+    
+  mongo-express:
+    image: mongo-express
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=transactiondb
+      - ME_CONFIG_MONGODB_PORT=27017
+      - ME_CONFIG_BASICAUTH_USERNAME=admin
+      - ME_CONFIG_BASICAUTH_PASSWORD=admin1234
+    restart: always
+    ports:
+      - "8081:8081"
+    volumes:
+      - mongo_data:/data/db
+  
   portainer:
     container_name: portainer
     restart: always
