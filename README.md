@@ -1,12 +1,14 @@
 # Distributed Bank
 
-This project is a sample of microservices architecture with .NET 8. You can see the overall picture below here;
+This project is a sample of microservices architecture with .NET 8. 
 
-![samplebank](https://github.com/alperenkucukali/samplebank-microservices/assets/38986621/36d3f7cc-f88e-4c28-b7b4-0b40fff10220)
+You can see the overall diagram below here;
 
-## Whats Including
+![Sample Bank - Dotnet microservice architecture](https://i.postimg.cc/QtB4hWhD/Untitled-2024-09-23-1357-1.png)
 
-### Customer microservice
+## What's Included
+
+### Customer Microservice
 * **ASP.NET Core Web API** application and **gRPC Server** application
 * **REST API** principles, **CRUD** operations
 * Implementing **DDD, CQRS, and Clean Architecture** using best practices
@@ -35,7 +37,7 @@ This project is a sample of microservices architecture with .NET 8. You can see 
 * **MongoDB database** connection and containerization
 * **Swagger Open API** implementation
 
-### API Gateway Ocelot Microservice
+### API Gateway(Ocelot) Microservice
 - Implement **API Gateways with Ocelot**
 - Sample microservices/containers to reroute through the API Gateways
 - Run multiple different **API Gateway/BFF** container types
@@ -48,11 +50,11 @@ This project is a sample of microservices architecture with .NET 8. You can see 
 - Making Microservices more **resilient Use IHttpClientFactory** to implement resilient HTTP requests
 - Implement **Retry and Circuit Breaker patterns** with exponential backoff with IHttpClientFactory and **Polly policies**
 
-### Helper Containers
+### Supporting Containers
 - Use **Portainer** for Container lightweight management UI which allows you to easily manage your different Docker environments
 - **pgAdmin PostgreSQL Tools** feature rich Open Source administration and development platform for PostgreSQL
 
-### Docker Compose establishment with all microservices on docker;
+### Docker Compose Setup
 - Containerization of microservices
 - Containerization of databases
-- Override Environment variables
+- Override environment variables
