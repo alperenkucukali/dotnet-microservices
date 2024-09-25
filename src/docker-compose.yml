@@ -1,14 +1,14 @@
 version: '3.4'
 
 services:
-  customerdb:
-    image: postgres
-
-  accountdb:
-    image: postgres
-
   transactiondb:
     image: mongo
+    
+  accountdb:
+    image: postgres
+    
+  customerdb:
+    image: postgres
 
   rabbitmq:
     image: rabbitmq:3-management-alpine
@@ -19,11 +19,11 @@ services:
   portainer:
     image: portainer/portainer-ce
 
-  customer.api:
-    image: ${DOCKER_REGISTRY-}customerapi
+  transaction.api:
+    image: ${DOCKER_REGISTRY-}transactionapi
     build:
       context: .
-      dockerfile: Services/Customer/Customer.API/Dockerfile
+      dockerfile: Services/Transaction/Transaction.API/Dockerfile
 
   account.api:
     image: ${DOCKER_REGISTRY-}accountapi
@@ -31,11 +31,11 @@ services:
       context: .
       dockerfile: Services/Account/Account.API/Dockerfile
 
-  transaction.api:
-    image: ${DOCKER_REGISTRY-}transactionapi
+  customer.api:
+    image: ${DOCKER_REGISTRY-}customerapi
     build:
       context: .
-      dockerfile: Services/Transaction/Transaction.API/Dockerfile
+      dockerfile: Services/Customer/Customer.API/Dockerfile
 
   customer.grpc:
     image: ${DOCKER_REGISTRY-}customergrpc
