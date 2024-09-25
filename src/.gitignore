@@ -1,1 +1,59 @@
+<<<<<<< Updated upstream
 .idea
+=======
+# IntelliJ IDEA
+.idea/
+*.iml
+out/
+# Ignore all project files, but keep .gitignore and other essential files
+!.gitignore
+
+# VS Code
+.vscode/
+
+# Rider
+.idea/
+.idea_modules/
+*.sln.iml
+.gradle/
+build/
+
+# Visual Studio
+.vs/
+.vscode/
+*.csproj.user
+*.suo
+*.vcxproj.user
+*.user
+*.cache/
+*.log
+
+# Common IDE files
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+# OS generated files
+*.log
+*.tmp
+*.bak
+*.pid
+*.seed
+*.pid.lock
+
+# JetBrains Rider
+.idea/
+.idea_modules/
+.gradle/
+build/
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Temporary files
+*.tmp
+*.temp
+>>>>>>> Stashed changes
