@@ -1,87 +1,13 @@
 {
   "Routes": [
-    //Customer API
-    {
-      "DownstreamPathTemplate": "/api/v1/Customers",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": "8000"
-        }
-      ],
-      "UpstreamPathTemplate": "/Customers",
-      "UpstreamHttpMethod": [ "POST" ]
-    },
-    {
-      "DownstreamPathTemplate": "/api/v1/Customers/{id}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": "8000"
-        }
-      ],
-      "UpstreamPathTemplate": "/Customers/{id}",
-      "UpstreamHttpMethod": [ "GET" ]
-    },
-    //Account API
-    {
-      "DownstreamPathTemplate": "/api/v1/Accounts",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": "8001"
-        }
-      ],
-      "UpstreamPathTemplate": "/Accounts",
-      "UpstreamHttpMethod": [ "POST" ]
-    },
-    {
-      "DownstreamPathTemplate": "/api/v1/Accounts/Adding",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": "8001"
-        }
-      ],
-      "UpstreamPathTemplate": "/Accounts/Adding",
-      "UpstreamHttpMethod": [ "POST" ]
-    },
-    {
-      "DownstreamPathTemplate": "/api/v1/Accounts/Withdrawing",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": "8001"
-        }
-      ],
-      "UpstreamPathTemplate": "/Accounts/Withdrawing",
-      "UpstreamHttpMethod": [ "POST" ]
-    },
-    {
-      "DownstreamPathTemplate": "/api/v1/Accounts/{id}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": "8001"
-        }
-      ],
-      "UpstreamPathTemplate": "/Accounts/{id}",
-      "UpstreamHttpMethod": [ "GET" ]
-    },
     //Transaction API
     {
       "DownstreamPathTemplate": "/api/v1/Transactions/{accountId}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": "8002"
+          "Host": "transaction.api",
+          "Port": "8080"
         }
       ],
       "UpstreamPathTemplate": "/Transactions/{accountId}",
@@ -92,15 +18,89 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": "8002"
+          "Host": "transaction.api",
+          "Port": "8080"
         }
       ],
       "UpstreamPathTemplate": "/Transactions",
       "UpstreamHttpMethod": [ "GET" ]
+    },
+    //Account API
+    {
+      "DownstreamPathTemplate": "/api/v1/Accounts",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "account.api",
+          "Port": "8080"
+        }
+      ],
+      "UpstreamPathTemplate": "/Accounts",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/Accounts/Adding",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "account.api",
+          "Port": "8080"
+        }
+      ],
+      "UpstreamPathTemplate": "/Accounts/Adding",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/Accounts/Withdrawing",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "account.api",
+          "Port": "8080"
+        }
+      ],
+      "UpstreamPathTemplate": "/Accounts/Withdrawing",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/Accounts/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "account.api",
+          "Port": "8080"
+        }
+      ],
+      "UpstreamPathTemplate": "/Accounts/{id}",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    //Customer API
+    {
+      "DownstreamPathTemplate": "/api/v1/Customers",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "customer.api",
+          "Port": "8080"
+        }
+      ],
+      "UpstreamPathTemplate": "/Customers",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/v1/Customers/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "customer.api",
+          "Port": "8080"
+        }
+      ],
+      "UpstreamPathTemplate": "/Customers/{id}",
+      "UpstreamHttpMethod": [ "GET" ]
     }
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "http://localhost:5010"
+    "BaseUrl": "http://localhost:8010"
   }
 }
